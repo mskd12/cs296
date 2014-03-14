@@ -1,16 +1,23 @@
+import subprocess
 import numpy as np
 import matplotlib.pyplot as plt
 from pylab import * 
 from matplotlib.patches import Circle
 
-f = open('../data/g04_lab09data.csv','r')
-g = open('../data/g04_lab09data_random.csv','r')
-h = open('../data/g04_lab09data.csv','r')
+sp = subprocess.Popen(['ls', './'], stdout=subprocess.PIPE)
+[output, _ ] = sp.communicate()
+ls_output = output.decode("utf-8").split()
+if 'plots' not in ls_output:
+        subprocess.call('mkdir ./plots/', shell=True)
 
-iteration_no = 50
-rerun_no = 30
-random_no = 15
-iteration_value = 20
+f = open('./data/g04_lab09data.csv','r')
+g = open('./data/g04_lab09data_random.csv','r')
+h = open('./data/g04_lab09data.csv','r')
+
+iteration_no = 10
+rerun_no = 10
+random_no = 5
+iteration_value = 6
 
 steptime=list()
 collisiontime=list()
@@ -56,10 +63,10 @@ ax1.bar(x, steptime, 0.5, align='center', color='r', label='Steptime')
 ax2.plot(x, looptime, color='b', label='Looptime')
 ax1.legend(loc=0)
 ax2.legend(loc=0)
-ax1.set_xlabel('iterations')
-ax2.set_ylabel('loop time')
-ax1.set_ylabel('step time')
-ax1.set_title('step time and loop time averaged over reruns (vs) iteration numbers ')
+ax1.set_xlabel('Iterations')
+ax2.set_ylabel('Loop time')
+ax1.set_ylabel('Step time')
+ax1.set_title('Step time and Loop time averaged over reruns (vs) Iteration numbers ')
 
 max_value = max(looptime)
 max_index = looptime.index(max_value)
@@ -69,40 +76,40 @@ min_index = looptime.index(min_value)
 max_iter = max_index
 min_iter = min_index
 caxis = plt.gca()
-caxis.add_patch(Circle((max_iter+1, max_value), 0.3 , facecolor="grey", label="Max"))
-caxis.add_patch(Circle((min_iter+1, min_value), 0.3 , facecolor="yellow", label="Min"))
+caxis.add_patch(Circle((max_iter+1, max_value), 0.2 , facecolor="grey", label="Max"))
+caxis.add_patch(Circle((min_iter+1, min_value), 0.2 , facecolor="yellow", label="Min"))
 
 caxis.legend(loc=0)
 #extendfrac[None]
-plt.savefig('../plots/g04_lab09_plot01.png')
+plt.savefig('./plots/g04_lab09_plot01.png')
 
 #######################################
 
 plt.clf()
 temp_list = [x + y + z for x, y, z in zip(positiontime, collisiontime, velocitytime)]
 fig, ax = plt.subplots()
-ax.plot(x, steptime, label='steptime')
-ax.plot(x, collisiontime, label='collisiontime')
-ax.plot(x, velocitytime, label='velocitytime update')
-ax.plot(x, positiontime, label='positiontime update')
-ax.plot(x, temp_list, label='sum of velocitytime, collisiontime, positiontime')
+ax.plot(x, steptime, label='Steptime')
+ax.plot(x, collisiontime, label='Collision time')
+ax.plot(x, velocitytime, label='Velocity updates time')
+ax.plot(x, positiontime, label='Position updates time')
+ax.plot(x, temp_list, label='sum of Velocity, collision and position times')
 ax.set_title('plot-02')
-ax.set_xlabel('iterations')
-ax.set_ylabel('time')
+ax.set_xlabel('Iterations')
+ax.set_ylabel('Time')
 ax.legend()
-plt.savefig('../plots/g04_lab09_plot02.png')
+plt.savefig('./plots/g04_lab09_plot02.png')
 
 #######################################
 
 plt.clf()
 fig, ax = plt.subplots()
-rects1 = ax.plot(x, steptime, label='steptime')
+rects1 = ax.plot(x, steptime, label='Steptime')
 ax.errorbar(x, steptime, yerr = steptime_error, fmt='o', label='error bars')
-ax.set_xlabel('iterations')
-ax.set_title('steptime with error bars (vs) iteration numbers')
-ax.set_ylabel('steptime')
+ax.set_xlabel('Iterations')
+ax.set_title('Steptime with error bars (vs) Iteration numbers')
+ax.set_ylabel('Steptime')
 ax.legend()
-plt.savefig('../plots/g04_lab09_plot03.png')
+plt.savefig('./plots/g04_lab09_plot03.png')
 
 ########################################
 
@@ -134,20 +141,20 @@ fn1 = poly1d(l1)
 fn2 = poly1d(l2)
 
 fig, ax = plt.subplots()
-ax.plot(x, steptime_02, 'b.', label="average step time(data-02)")
-ax.plot(x, fn1(x), 'b-', label='Best fit line for 2nd csv file')
+ax.plot(x, steptime_02, 'b.', label="Average step time")
+ax.plot(x, fn1(x), 'b-', label='Best fit line')
 
-ax.plot(x, steptime_random, 'r.', label="average step time(random)")
-ax.plot(x, fn2(x), 'r-', label='Best fit line for random data file')
+ax.plot(x, steptime_random, 'r.', label="Average step time(random)")
+ax.plot(x, fn2(x), 'r-', label='Best fit line for random data')
 
-ax.set_title('plot05')
+ax.set_title('plot-05')
 ax.set_xlabel('Iteration number')
 ax.set_ylabel('Step time')
 
 
 ax.legend()
 
-plt.savefig('../plots/g04_lab09_plot05.png')
+plt.savefig('./plots/g04_lab09_plot05.png')
 
 ###################################################
 h.seek(0)
@@ -167,14 +174,14 @@ for i in range(iteration_no):
 
 
 fig, ax = plt.subplots()
-ax.hist(steptime_roll,bins = 10, color='b', label="frequency")
+var1 ,var2, var3 = ax.hist(steptime_roll,bins = 10, color='b', label="Frequency")
 ax.hist(steptime_roll,bins = 10, histtype='step', color='r', label="cum frequency", cumulative=True)
-
 ax.set_ylabel('count')
 ax.set_xlabel('step time')
 ax.set_title('plot-04')
 ax.legend()
-plt.savefig('../plots/g04_lab09_plot04.png')
+plt.yticks(np.arange(0, sum(var1)))
+plt.savefig('./plots/g04_lab09_plot04.png')
 
 f.close()
 g.close()
