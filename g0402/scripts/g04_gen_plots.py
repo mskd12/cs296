@@ -7,7 +7,7 @@ f = open('../data/g04_lab09data.csv','r')
 g = open('../data/g04_lab09data_random.csv','r')
 h = open('../data/g04_lab09data.csv','r')
 
-iteration_no = 30
+iteration_no = 50
 rerun_no = 30
 random_no = 15
 iteration_value = 20

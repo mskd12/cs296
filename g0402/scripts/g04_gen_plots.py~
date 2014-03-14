@@ -5,7 +5,7 @@ from matplotlib.patches import Circle
 
 f = open('../data/g04_lab09data.csv','r')
 g = open('../data/g04_lab09data_random.csv','r')
-h = open('../data/g04_lab05data_02.csv','r')
+h = open('../data/g04_lab09data.csv','r')
 
 iteration_no = 30
 rerun_no = 30
