@@ -1,0 +1,50 @@
+#Plot the step time averaged over all reruns (Y) for various iteration values (X).
+#the collision time, velocity and position update times averaged over all reruns (Y) for various iteration values (X)
+#sum of averaged collision, velocity and position times (Y) for various iteration values (X). Use gXX_lab05data_01.csv
+#iteration value, rerun number, step time, collision time, velocity time, position time, loop time
+
+
+#step_time, collision_time, velocity_time, position_time, loop_time
+
+#!/bin/bash
+inputfile=../data/g04_lab05data_01.csv
+outputfile=../data/plot_data.dat
+reruns=5
+rm -rf $outputfile
+
+cat $inputfile | awk '
+BEGIN {
+	avg_step=0;
+        avg_collision=0;
+        avg_velocity=0;
+        avg_position=0;
+        avg_loop=0;
+}
+{       FS=",";
+        if (NR%'$reruns'==0) {
+                avg_step/='$reruns';
+                avg_collision/='$reruns';
+		avg_velocity/='$reruns';
+		avg_position/='$reruns';
+                printf avg_step;
+                printf " ";
+		printf avg_collision;
+		printf " ";
+		printf avg_velocity;
+		printf " ";
+		printf avg_position;
+		printf " ";
+		print avg_loop;
+                avg_step=0;
+                avg_collision=0;
+		avg_velocity=0;
+		avg_position=0;
+		avg_loop=0;
+        }
+        avg_step+=$3;
+	avg_collision+=$4;
+	avg_velocity+=$5;
+	avg_position+=$6;
+	avg_loop+=$7;
+}
+' >> $outputfile

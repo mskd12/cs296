@@ -1,0 +1,6 @@
+#!/bin/bash
+iterations=10
+reruns=5
+inputfile=../data/g04_lab05data_02.csv
+outputfile=../data/g04_lab05data_02_avg.csv
+rm -rf $outputfile

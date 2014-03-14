@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html style="height:100%">
+	<head>
+		<link rel="stylesheet" type="text/css" href="./index.css">
+		<title>
+			Analysis of Box2D Simulation Data
+		</title>
+	</head>
+
+	<body class="body" style="background-image:url('./images/grey_wash_wall.png')">
+
+		<center>
+			<div>
+				<h1>
+					Analysis of Box2D Simulation Data
+				</h1>
+				<h3 style="margin-left:20%;margin-top:-1.5%">
+					Pratik Fegade (120050004)
+					<br>
+					M. S. Krishna Deepak (120050057)
+					<br>
+					P. Bharath Kumar (120050058)
+					<br>
+				</h3>
+			</div>
+		</center>
+		<hr>
+		<div name="homeContent" style="margin-left:1%">
+			<h2 style="margin-left:-1%">
+				Analysis of the Data
+			</h2>
+			<p style="font-size:14pt">
+				The data is obtained by running the simulation for some reruns for a particular number of steps and averaging over the reruns. Data for looptime, steptime, time required for position, collision and velocity updates was collected. The steptime is significantly high for low number of iterations (probably due to all the variable initializations required at the start of the simulation) and it falls quickly and stabilises. Similar but less pronounced effects are seem with the times required for velocity, postion and collision updates. Also the sum of the average times required for velocity, postion and collision updates signoficantly falls short of the average steptime suggesting that some other not examined function takes up significant amounts of time. For all the iteration values, the velocity update time is the highest while the collision update time is the lowest. A plot of these average times is shown below.
+			</p>
+			<p style="font-size:14pt">
+				 The average steptime for a significant number of iterations is almost stable though it sometimes varies a lot over the reruns. This is demonstrated by plotting a frequency plot of the steptimes over the reruns for a particular value of the number of iterations (58 in our case). The plot as expected shows a concentrations of stetimes around the average steptime but it does have a significant tail as a result of some high values of the steptime.
+			</p>
+			<p style="font-size:14pt">
+				 The data was generated for 150 reruns for each iteration (1 to 1500). However, a plot of the line obtained by applying linear regression on  average steptime of randomly selected 15 reruns out of the 150 reruns shows stiking similarity to that obtained by regressing over the entire data. Hence it seems that the analysis would not differ much even if data is collected for a smaller number of reruns.
+			</p>
+			<p style="font-size:14pt">
+				
+			</p>
+			<h2 style="margin-left:-1%">
+				Effect of CPU/Memory Load on the Data
+			</h2>
+			<p style="font-size:14pt">
+				 The data depends on the memory and the cpu load on the machine the simulation is being run on. The average times show a noticeable rise when the cpu is loaded with other processor intensive processes. The graph below plots the average times obtained with a loaded cpu. 
+			</p>
+			<p style="font-size:14pt">
+				The times in the case when there is a significant load on the memory are lesser than the case when the processor is loaded however are still higher than the case when the system is not loaded in the case of the memory or the processor. This is because the simulation is not as memory intensive as it is processor intensive.
+			</p>
+			<p style="font-size:14pt">
+				 The command line utility time gives 3 different times - real, user and sys times. The user time corresponds to actual time elapsed. The user time gives the time spent by the process that time is invoked on on the cpu while the system time gives the time the OS takes to perform tasks for the process. The real time thus can be affected by other processes running as it is the actual time interval. On invoking the time utility on the simulation it is observed that the looptime is smaller than the user time, which in turn is smaller than the real time. Also the system time is very low are compared to the other times. The looptime is smaller than the user time as the simulation does other tasks (initialisations and related tasks like setting up standard utilities like stdin and stdout) apart from just running the loop.
+			</p>
+			<p style="font-size:14pt">
+				
+			</p>
+			<p style="font-size:14pt">
+				
+			</p>
+			<p style="font-size:14pt">
+				
+			</p>
+			<br>
+			<h2 style="margin-left:-1%">Plots of the Collected Data</h2>
+			<center>
+				<div>
+					<br>
+					<img src="../plots/g04_lab09_plot01.png/" height = "400">
+					<br>
+					<figcaption>Fig.1:  Avg. Steptimes and Looptimes v/s Iterations</figcaption>
+					<br>
+					<img src="../plots/g04_lab09_plot02.png/" height = "400">
+					<br>
+					<figcaption>Fig.2:  Avg. Steptimes, Velocity, Collision and Position Update times v/s Iterations</figcaption>
+					<br>
+					<img src="../plots/g04_lab09_plot03.png/" height = "400">
+					<br>
+					<figcaption>Fig.3:  Steptimes v/s Iterations with Error Bars</figcaption>
+					<br>
+					<img src="../plots/g04_lab09_plot04.png/" height = "400">
+					<br>
+					<figcaption>Fig.4:  Histogram of Steptimes for 58 Iterations</figcaption>
+					<br>
+					<img src="../plots/g04_lab09_plot05.png/" height = "400">
+					<br>
+					<figcaption>Fig.5:  Avg. Steptimes for Random Samples and Entire Data v/s Iterations</figcaption>
+					<br>
+					<img src="../plots/g04_plot01.png/" height = "400">
+					<br>
+					<figcaption>Fig.6:  </figcaption>
+					<br>
+					<img src="../plots/g04_plot02.png/" height = "400">
+					<br>
+					<figcaption>Fig.7:  </figcaption>
+					<br>
+					<img src="../plots/g04_plot03.png/" height = "400">
+					<br>
+					<figcaption>Fig.8:  </figcaption>
+					<br>
+					<img src="../plots/g04_plot05.png/" height = "400">
+					<br>
+					<figcaption>Fig.9:  </figcaption>
+					<br>
+				</div>
+			</center>
+		</div>
+	</body>
+</html>

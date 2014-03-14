@@ -1,0 +1,11 @@
+set xlabel "Iterations"
+set ylabel "time"
+set xtics 0,2
+set key left top
+set title "plot-03"
+set term png
+set output "../plots/g04_plot03.png"
+plot '../data/plot_data.dat' using (($0)+1):1 title "steptime" with lines, \
+'../data/plot_data.dat' using (($0)+1):1:(($7)-($6)) title "error" with yerrorbars
+
+#pause -1

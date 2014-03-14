@@ -1,0 +1,20 @@
+set xlabel "Iterations"
+set ylabel "step time"
+set title "plot-05"
+m1=0
+c1=0
+f1(x) = m1*x+c1
+fit f1(x) '../data/plot_data_random.dat' u (($0)+1):1 via m1, c1
+
+f2(x) = m2*x+c2
+fit f2(x) '../data/plot_data02.dat' u (($0)+1):1 via m2, c2
+
+set term png
+set output "../plots/g04_plot05.png"
+
+plot '../data/plot_data_random.dat' u (($0)+1):1 t "Avg Step time(Random)", \
+'../data/plot_data_random.dat' u (($0)+1):(f1(($0)+1)) w line t "Line fitting random data", \
+'../data/plot_data02.dat' u (($0)+1):1 t "Avg Step time(data-02)", \
+'../data/plot_data02.dat' u (($0)+1):(f2(($0)+1)) w lines t "Line fitting data-02"
+
+#pause -1

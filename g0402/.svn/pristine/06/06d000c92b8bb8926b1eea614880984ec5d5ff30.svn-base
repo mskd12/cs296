@@ -1,0 +1,11 @@
+set xlabel "number of iterations"
+set ylabel "time"
+set xtics 0,2
+set key left top
+#rm -rf ../plots/g04_plot01.png
+set term png
+set output "../plots/g04_plot01.png"
+plot '../data/plot_data.dat' using 0:1 title "steptime" with boxes, \
+'../data/plot_data.dat' using 0:5 title "looptime" with lines \
+
+#pause -1
